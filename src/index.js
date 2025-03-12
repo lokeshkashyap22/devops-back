@@ -1,23 +1,29 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
 import NoteRouter from "./route/note.route.js";
+import cors from "cors";
+import dotenv from "dotenv";
 
-dotenv.config();
+dotenv.config(); // Loads variables from .env
+
 const app = express();
+app.use(cors());
 const PORT = process.env.PORT || 5000;
 app.use(express.json());
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect("mongodb://localhost:27017/"); 
+    const mongoUri = String(process.env.MONGO_URI);
+    const conn = await mongoose.connect(
+      process.env.MONGO_URI || "mongodb://localhost:27017/",
+      {}
+    );
     console.log(`MongoDB Connected: ${conn.connection.host}`);
   } catch (error) {
     console.error(`Error: ${error.message}`);
     process.exit(1);
   }
 };
-
 
 connectDB();
 
