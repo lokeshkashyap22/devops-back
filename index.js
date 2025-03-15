@@ -4,6 +4,7 @@ import NoteRouter from "./src/route/note.route.js";
 import cors from "cors";
 import dotenv from "dotenv";
 import connectDB from "./src/config/db.js";
+const PORT = 5000;
 
 // Load environment variables
 dotenv.config();
@@ -28,5 +29,5 @@ app.get("/", (req, res) => {
 
 // Start the server
 app.listen(process.env.PORT, () => {
-  console.log(`Server is running on port ${process.env.PORT}`);
+  console.log(`Server is running on port ${process.env.PORT || PORT}`);
 });
